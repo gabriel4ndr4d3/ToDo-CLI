@@ -42,15 +42,18 @@ public class Main {
     }
 
     public void add() {
+        try {
+            System.out.print("Título: ");
+            String title = scanner.nextLine();
 
-        System.out.print("Título: ");
-        String title = scanner.nextLine();
+            System.out.print("Descrição: ");
+            String description = scanner.nextLine();
 
-        System.out.print("Descrição: ");
-        String description = scanner.nextLine();
+            Task task = new Task(title, description);
 
-        Task task = new Task(title, description);
-
-        dataSource.add(task);
+            dataSource.add(task);
+        } catch (Exception e) {
+            System.err.print(e.getMessage());
+        }
     }
 }

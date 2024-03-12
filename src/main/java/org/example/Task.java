@@ -17,6 +17,11 @@ public class Task {
             String title,
             String description
     ) {
+
+        if (title.isBlank()) {
+            throw new IllegalArgumentException("This title is invalid");
+        }
+
         this.title = title;
         this.description = description;
     }
