@@ -1,9 +1,7 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.io.File;
+import java.util.*;
 
 public class Main {
 
@@ -39,6 +37,13 @@ public class Main {
 
             return;
         }
+        if (command.equals("list")) {
+
+            args.remove(0);
+
+            list();
+
+        }
     }
 
     public void add() {
@@ -54,6 +59,26 @@ public class Main {
             dataSource.add(task);
         } catch (Exception e) {
             System.err.print(e.getMessage());
+        }
+    }
+
+    public void list() {
+
+        File diretorio = Util.getGlobalDir();
+
+        if (diretorio.isDirectory()) {
+
+            File[] arquivos = diretorio.listFiles();
+
+            if (arquivos != null && arquivos.length != 0) {
+
+                for (File arquivo : arquivos) {
+                    System.out.println(arquivo.getName());
+                }
+
+            } else {
+                System.out.println("Empty directory files");
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ import java.nio.file.Files;
 
 public class Util {
 
-    public static File getGlobalFile() {
+    public static File getGlobalDir() {
 
         String userHome = System.getProperty("user.home");
 

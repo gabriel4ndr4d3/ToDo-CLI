@@ -17,7 +17,7 @@ public class TaskDataSource {
 
             String json = gson.toJson(task);
 
-            File dir = Util.getGlobalFile();
+            File dir = Util.getGlobalDir();
 
             if (!dir.exists() && !dir.mkdirs()) {
                 throw new IOException("Failed to create global dir");
