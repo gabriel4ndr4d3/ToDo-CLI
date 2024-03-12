@@ -24,7 +24,7 @@ public class Main {
 
     public void run(List<String> args) {
 
-        String command = args.getFirst();
+        String command = args.get(0);
 
         if (command.equals("--version")) {
             System.out.println("1.0-DEV");
@@ -33,7 +33,7 @@ public class Main {
 
         if (command.equals("add")) {
 
-            args.removeFirst();
+            args.remove(0);
 
             add();
 

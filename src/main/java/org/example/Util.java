@@ -1,6 +1,7 @@
 package org.example;
 
 import java.io.*;
+import java.nio.file.Files;
 
 public class Util {
 
@@ -14,7 +15,7 @@ public class Util {
     public static void write(File file, String text) {
 
         try {
-            OutputStream outputStream = new FileOutputStream(file);
+            OutputStream outputStream = Files.newOutputStream(file.toPath());
 
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
 
