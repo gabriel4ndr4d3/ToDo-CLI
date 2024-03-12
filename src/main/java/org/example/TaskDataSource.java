@@ -20,18 +20,22 @@ public class TaskDataSource {
             File dir = Util.getGlobalFile();
 
             if (!dir.exists() && !dir.mkdirs()) {
-                throw new RuntimeException("Failed to create global dir");
+                throw new IOException("Failed to create global dir");
             }
 
             File file = new File(dir, task.getTitle());
 
-            if (!file.exists() && !file.createNewFile()) {
-                throw new RuntimeException("Failed to create task file");
+            if (file.exists()) {
+                throw new IllegalArgumentException("This task already exists");
+            }
+
+            if (!file.createNewFile()) {
+                throw new IOException("Task creation failed");
             }
 
             Util.write(file, json);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.print(e.getMessage());
         }
     }
