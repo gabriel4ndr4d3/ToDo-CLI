@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-java -jar ./target/ToDo-CLI-1.0-DEV.jar "$@"
+java -jar ./target/ToDo-CLI-*-jar-with-dependencies.jar "$@"
