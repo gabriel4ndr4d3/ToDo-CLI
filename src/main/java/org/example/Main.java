@@ -1,5 +1,7 @@
 package org.example;
 
+import com.google.gson.Gson;
+
 import java.io.File;
 import java.util.*;
 
@@ -66,19 +68,23 @@ public class Main {
 
         File diretorio = Util.getGlobalDir();
 
-        if (diretorio.isDirectory()) {
+        File[] arquivos = diretorio.listFiles();
 
-            File[] arquivos = diretorio.listFiles();
+        if (arquivos != null && arquivos.length != 0) {
 
-            if (arquivos != null && arquivos.length != 0) {
+            for (File arquivo : arquivos) {
 
-                for (File arquivo : arquivos) {
-                    System.out.println(arquivo.getName());
-                }
+                String content = Util.read(arquivo);
 
-            } else {
-                System.out.println("Empty directory files");
+                Gson gson = new Gson();
+
+                Task task = gson.fromJson(content, Task.class);
+
+                System.out.println(task);
             }
+
+        } else {
+            System.out.println("Empty directory files");
         }
     }
 }
