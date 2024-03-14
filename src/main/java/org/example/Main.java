@@ -1,5 +1,6 @@
 package org.example;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,6 +40,13 @@ public class Main {
 
             return;
         }
+        if (command.equals("delete")) {
+
+            args.removeFirst();
+
+            delete();
+
+        }
     }
 
     public void add() {
@@ -55,5 +63,32 @@ public class Main {
         } catch (Exception e) {
             System.err.print(e.getMessage());
         }
+    }
+    public void delete() {
+        Scanner tecla = new Scanner(System.in);
+
+        File directory = Util.getGlobalFile();
+
+        System.out.println("File name to delete: ");
+        String nameDelete = tecla.nextLine();
+
+        if (directory.exists() && directory.isDirectory()) {
+            File[] files = directory.listFiles();
+
+            boolean fileFoud = false;
+
+            for (File file : files) {
+                if (file.isFile() && file.getName().equals(nameDelete)) {
+                    fileFoud = true;
+                    if (file.delete()) {
+                        System.out.println("File " + nameDelete + "successfully deleted.");
+                    }
+                }
+            }
+            if (!fileFoud) {
+                System.err.println("Non-existing file");
+            }
+        }
+        scanner.close();
     }
 }
