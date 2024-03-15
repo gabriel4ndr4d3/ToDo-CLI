@@ -56,8 +56,6 @@ public class TaskDataSource {
 
                 String content = Util.read(arquivo);
 
-                Gson gson = new Gson();
-
                 Task task = gson.fromJson(content, Task.class);
 
                 tasks.add(task);
