@@ -40,6 +40,13 @@ public class Main {
 
             return;
         }
+        if (command.equals("list")) {
+
+            args.remove(0);
+
+            list();
+
+        }
 
         if (command.equals("delete")) {
 
@@ -70,9 +77,25 @@ public class Main {
         }
     }
 
+    public void list() {
+
+        List<Task> tasks = dataSource.list();
+
+        if (tasks.isEmpty()) {
+
+            System.out.println("Empty directory files!!");
+
+            return;
+        }
+
+        for (Task task : tasks) {
+            System.out.println(task);
+        }
+    }
+
     private void delete(String nameToDelete) {
 
-        File directory = Util.getGlobalFile();
+        File directory = Util.getGlobalDir();
 
         File fileToDelete = new File(directory, nameToDelete);
 

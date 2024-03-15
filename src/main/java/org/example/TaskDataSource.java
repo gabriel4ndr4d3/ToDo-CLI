@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TaskDataSource {
 
@@ -17,7 +19,7 @@ public class TaskDataSource {
 
             String json = gson.toJson(task);
 
-            File dir = Util.getGlobalFile();
+            File dir = Util.getGlobalDir();
 
             if (!dir.exists() && !dir.mkdirs()) {
                 throw new IOException("Failed to create global dir");
@@ -38,5 +40,28 @@ public class TaskDataSource {
         } catch (Exception e) {
             System.err.print(e.getMessage());
         }
+    }
+
+    public List<Task> list() {
+
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        File diretorio = Util.getGlobalDir();
+
+        File[] arquivos = diretorio.listFiles();
+
+        if (arquivos != null && arquivos.length != 0) {
+
+            for (File arquivo : arquivos) {
+
+                String content = Util.read(arquivo);
+
+                Task task = gson.fromJson(content, Task.class);
+
+                tasks.add(task);
+            }
+        }
+
+        return tasks;
     }
 }
