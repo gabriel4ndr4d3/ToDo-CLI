@@ -47,6 +47,8 @@ public class Main {
             delete();
 
         }
+
+        scanner.close();
     }
 
     public void add() {
@@ -65,30 +67,21 @@ public class Main {
         }
     }
     public void delete() {
-        Scanner tecla = new Scanner(System.in);
 
         File directory = Util.getGlobalFile();
 
         System.out.println("File name to delete: ");
-        String nameDelete = tecla.nextLine();
+        String nameToDelete = scanner.nextLine();
 
-        if (directory.exists() && directory.isDirectory()) {
-            File[] files = directory.listFiles();
+        File fileToDelete = new File(directory, nameToDelete);
 
-            boolean fileFoud = false;
-
-            for (File file : files) {
-                if (file.isFile() && file.getName().equals(nameDelete)) {
-                    fileFoud = true;
-                    if (file.delete()) {
-                        System.out.println("File " + nameDelete + "successfully deleted.");
-                    }
-                }
-            }
-            if (!fileFoud) {
-                System.err.println("Non-existing file");
-            }
+        if (!fileToDelete.exists()) {
+            System.err.println("This file don't exist");
+            return;
         }
-        scanner.close();
+
+        if (!fileToDelete.delete()) {
+            System.err.println("Can't delete");
+        }
     }
 }
