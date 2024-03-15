@@ -24,7 +24,7 @@ public class Main {
 
     public void run(List<String> args) {
 
-        String command = args.getFirst();
+        String command = args.get(0);
 
         if (command.equals("--version")) {
             System.out.println("1.0-DEV");
@@ -33,11 +33,18 @@ public class Main {
 
         if (command.equals("add")) {
 
-            args.removeFirst();
+            args.remove(0);
 
             add();
 
             return;
+        }
+        if (command.equals("list")) {
+
+            args.remove(0);
+
+            list();
+
         }
     }
 
@@ -54,6 +61,22 @@ public class Main {
             dataSource.add(task);
         } catch (Exception e) {
             System.err.print(e.getMessage());
+        }
+    }
+
+    public void list() {
+
+        List<Task> tasks = dataSource.list();
+
+        if (tasks.isEmpty()) {
+
+            System.out.println("Empty directory files!!");
+
+            return;
+        }
+
+        for (Task task : tasks) {
+            System.out.println(task);
         }
     }
 }

@@ -18,7 +18,7 @@ public class Task {
             String description
     ) {
 
-        if (title.isBlank()) {
+        if (title.isEmpty()) {
             throw new IllegalArgumentException("This title is invalid");
         }
 
@@ -54,6 +54,6 @@ public class Task {
             status = "[ ]";
         }
 
-        return "%s %s".formatted(status, title);
+        return String.format("%s %s", status, title);
     }
 }
