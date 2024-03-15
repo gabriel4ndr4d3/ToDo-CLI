@@ -40,18 +40,21 @@ public class Main {
 
             return;
         }
+
         if (command.equals("delete")) {
 
-            args.removeFirst();
+            args.remove(0);
 
-            delete();
+            if (args.isEmpty()) {
+                delete(getNameToDelete());
+            } else {
+                delete(args.get(0));
+            }
 
         }
-
-        scanner.close();
     }
 
-    public void add() {
+    private void add() {
         try {
             System.out.print("Título: ");
             String title = scanner.nextLine();
@@ -66,12 +69,10 @@ public class Main {
             System.err.print(e.getMessage());
         }
     }
-    public void delete() {
+
+    private void delete(String nameToDelete) {
 
         File directory = Util.getGlobalFile();
-
-        System.out.println("File name to delete: ");
-        String nameToDelete = scanner.nextLine();
 
         File fileToDelete = new File(directory, nameToDelete);
 
@@ -84,4 +85,10 @@ public class Main {
             System.err.println("Can't delete");
         }
     }
+
+    private String getNameToDelete() {
+        System.out.println("File name to delete: ");
+        return scanner.nextLine();
+    }
+
 }
