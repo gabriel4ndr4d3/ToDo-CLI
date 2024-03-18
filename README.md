@@ -38,7 +38,7 @@ $ todo list
 Utilize o comando `show` para mostra uma tarefa.
 
 ``` shell
-$ todo show [index]
+$ todo show [task-name]
 ```
 
 ### done
