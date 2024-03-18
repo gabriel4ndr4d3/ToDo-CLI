@@ -71,8 +71,6 @@ public class TaskDataSource {
 
         String json = Util.read(taskFile);
 
-        Task task = new Gson().fromJson(json, Task.class);
-
-        return task;
+        return gson.fromJson(json, Task.class);
     }
 }
