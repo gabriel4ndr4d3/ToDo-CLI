@@ -1,7 +1,5 @@
 package org.example;
 
-import com.google.gson.Gson;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -134,13 +132,7 @@ public class Main {
 
     public void show(String taskName) {
 
-        File directory = Util.getGlobalDir();
-
-        File taskFile = new File(directory, taskName);
-
-        String json = Util.read(taskFile);
-
-        Task task = new Gson().fromJson(json, Task.class);
+        Task task = dataSource.getTask(taskName);
 
         System.out.println(task);
         System.out.println(task.getDescription());

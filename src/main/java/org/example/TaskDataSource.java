@@ -64,4 +64,15 @@ public class TaskDataSource {
 
         return tasks;
     }
+    public Task getTask(String taskName) {
+
+        File directory = Util.getGlobalDir();
+        File taskFile = new File(directory, taskName);
+
+        String json = Util.read(taskFile);
+
+        Task task = new Gson().fromJson(json, Task.class);
+
+        return task;
+    }
 }
