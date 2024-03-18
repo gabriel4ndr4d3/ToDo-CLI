@@ -49,10 +49,10 @@ Utilize `done` para marcar uma tarefa como concluída.
 $ todo done [index]
 ```
 
-### remove
+### delete
 
-Utilize `remove` para deletar uma tarefa.
+Utilize `delete` para deletar uma tarefa.
 
 ``` shell
-$ todo remove [index]
+$ todo delete [task-name]
 ```
