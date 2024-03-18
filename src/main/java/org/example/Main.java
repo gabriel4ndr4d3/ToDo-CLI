@@ -1,5 +1,7 @@
 package org.example;
 
+import com.google.gson.Gson;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,6 +61,13 @@ public class Main {
             }
 
         }
+
+        if (command.equals("show")) {
+
+            args.remove(0);
+
+            show();
+        }
     }
 
     private void add() {
@@ -112,6 +121,22 @@ public class Main {
     private String getNameToDelete() {
         System.out.println("File name to delete: ");
         return scanner.nextLine();
+    }
+
+    public void show() {
+
+        String taskName = scanner.nextLine();
+
+        File directory = Util.getGlobalDir();
+
+        File taskFile = new File(directory, taskName);
+
+        String json = Util.read(taskFile);
+
+        Task task = new Gson().fromJson(json, Task.class);
+
+        System.out.println(task);
+        System.out.println(task.getDescription());
     }
 
 }
