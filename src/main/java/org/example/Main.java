@@ -53,11 +53,32 @@ public class Main {
             args.remove(0);
 
             if (args.isEmpty()) {
-                delete(getNameToDelete());
+
+                System.out.println("Task name: ");
+
+                String taskName = scanner.nextLine();
+
+                delete(taskName);
             } else {
                 delete(args.get(0));
             }
 
+        }
+
+        if (command.equals("show")) {
+
+            args.remove(0);
+
+            if (args.isEmpty()) {
+
+                System.out.print("Task name: ");
+
+                String taskName = scanner.nextLine();
+
+                show(taskName);
+            } else {
+                show(args.get(0));
+            }
         }
     }
 
@@ -109,9 +130,12 @@ public class Main {
         }
     }
 
-    private String getNameToDelete() {
-        System.out.println("File name to delete: ");
-        return scanner.nextLine();
+    public void show(String taskName) {
+
+        Task task = dataSource.getTask(taskName);
+
+        System.out.println(task);
+        System.out.println(task.getDescription());
     }
 
 }
