@@ -80,6 +80,13 @@ public class Main {
                 show(args.get(0));
             }
         }
+        if (command.equals("done")) {
+
+            args.remove(0);
+
+
+            done();
+        }
     }
 
     private void add() {
@@ -136,6 +143,18 @@ public class Main {
 
         System.out.println(task);
         System.out.println(task.getDescription());
+    }
+    public void done() {
+
+        File diretotio = Util.getGlobalDir();
+
+        String filename  = scanner.nextLine();
+
+        File arquivo = new File(diretotio,filename);
+
+        if (!arquivo.exists()) {
+            System.out.println("File not found");
+        }
     }
 
 }
