@@ -1,7 +1,6 @@
 package org.example;
 
 import com.google.gson.Gson;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -85,7 +84,14 @@ public class Main {
 
             args.remove(0);
 
-            done();
+            if (args.isEmpty()) {
+
+                String taskName = scanner.nextLine();
+
+                done(taskName);
+            } else {
+                done(args.get(0));
+            }
         }
     }
 
@@ -137,21 +143,11 @@ public class Main {
         }
     }
 
-    public void show(String taskName) {
-
-        Task task = dataSource.getTask(taskName);
-
-        System.out.println(task);
-        System.out.println(task.getDescription());
-    }
-
-    public void done() {
+    public void done(String fileName) {
 
         File diretotio = Util.getGlobalDir();
 
-        String filename = scanner.nextLine();
-
-        File arquivo = new File(diretotio, filename);
+        File arquivo = new File(diretotio, fileName);
 
         if (!arquivo.exists()) {
             System.out.println("File not found");
@@ -167,6 +163,14 @@ public class Main {
         String novoConteudo = new Gson().toJson(task);
 
         Util.write(arquivo, novoConteudo);
+    }
+
+    public void show(String taskName) {
+
+        Task task = dataSource.getTask(taskName);
+
+        System.out.println(task);
+        System.out.println(task.getDescription());
     }
 
 }
