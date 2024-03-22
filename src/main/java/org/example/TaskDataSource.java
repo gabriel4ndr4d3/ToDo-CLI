@@ -64,6 +64,7 @@ public class TaskDataSource {
 
         return tasks;
     }
+
     public Task getTask(String taskName) {
 
         File directory = Util.getGlobalDir();
@@ -72,5 +73,27 @@ public class TaskDataSource {
         String json = Util.read(taskFile);
 
         return gson.fromJson(json, Task.class);
+    }
+
+    public void done(String taskName) {
+
+        File diretotio = Util.getGlobalDir();
+
+        File arquivo = new File(diretotio, taskName);
+
+        if (!arquivo.exists()) {
+            System.out.println("File not found");
+            return;
+        }
+
+        String conteudoAntigo = Util.read(arquivo);
+
+        Task task = gson.fromJson(conteudoAntigo, Task.class);
+
+        task.done();
+
+        String novoConteudo = gson.toJson(task);
+
+        Util.write(arquivo, novoConteudo);
     }
 }

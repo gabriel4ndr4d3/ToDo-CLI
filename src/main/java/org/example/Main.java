@@ -45,7 +45,6 @@ public class Main {
             args.remove(0);
 
             list();
-
         }
 
         if (command.equals("delete")) {
@@ -78,6 +77,19 @@ public class Main {
                 show(taskName);
             } else {
                 show(args.get(0));
+            }
+        }
+        if (command.equals("done")) {
+
+            args.remove(0);
+
+            if (args.isEmpty()) {
+
+                String taskName = scanner.nextLine();
+
+                done(taskName);
+            } else {
+                done(args.get(0));
             }
         }
     }
@@ -128,6 +140,10 @@ public class Main {
         if (!fileToDelete.delete()) {
             System.err.println("Can't delete");
         }
+    }
+
+    public void done(String fileName) {
+        dataSource.done(fileName);
     }
 
     public void show(String taskName) {
