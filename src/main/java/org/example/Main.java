@@ -1,5 +1,7 @@
 package org.example;
 
+import com.google.gson.Gson;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -144,17 +146,28 @@ public class Main {
         System.out.println(task);
         System.out.println(task.getDescription());
     }
+
     public void done() {
 
         File diretotio = Util.getGlobalDir();
 
-        String filename  = scanner.nextLine();
+        String filename = scanner.nextLine();
 
-        File arquivo = new File(diretotio,filename);
+        File arquivo = new File(diretotio, filename);
 
         if (!arquivo.exists()) {
             System.out.println("File not found");
         }
+
+        String conteudoAntigo = Util.read(arquivo);
+
+        Task task = new Gson().fromJson(conteudoAntigo, Task.class);
+
+        task.done();
+
+        String novoConteudo = new Gson().toJson(task);
+
+        Util.write(arquivo, novoConteudo);
     }
 
 }
