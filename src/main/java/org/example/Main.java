@@ -155,6 +155,7 @@ public class Main {
 
         if (!arquivo.exists()) {
             System.out.println("File not found");
+            return;
         }
 
         String conteudoAntigo = Util.read(arquivo);
