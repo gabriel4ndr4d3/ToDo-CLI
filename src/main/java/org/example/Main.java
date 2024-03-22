@@ -47,7 +47,6 @@ public class Main {
             args.remove(0);
 
             list();
-
         }
 
         if (command.equals("delete")) {
@@ -85,7 +84,6 @@ public class Main {
         if (command.equals("done")) {
 
             args.remove(0);
-
 
             done();
         }
