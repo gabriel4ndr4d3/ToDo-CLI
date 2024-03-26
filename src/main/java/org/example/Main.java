@@ -1,6 +1,5 @@
 package org.example;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -127,19 +126,7 @@ public class Main {
     }
 
     private void delete(String nameToDelete) {
-
-        File directory = Util.getGlobalDir();
-
-        File fileToDelete = new File(directory, nameToDelete);
-
-        if (!fileToDelete.exists()) {
-            System.err.println("This file don't exist");
-            return;
-        }
-
-        if (!fileToDelete.delete()) {
-            System.err.println("Can't delete");
-        }
+        dataSource.delete(nameToDelete);
     }
 
     public void done(String fileName) {
