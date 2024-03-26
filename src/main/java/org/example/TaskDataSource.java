@@ -96,4 +96,20 @@ public class TaskDataSource {
 
         Util.write(arquivo, novoConteudo);
     }
+
+    public void delete(String nameDelete) {
+
+        File directory = Util.getGlobalDir();
+
+        File fileToDelete = new File(directory, nameDelete);
+
+        if (!fileToDelete.exists()) {
+            System.err.println("This file don't exist");
+            return;
+        }
+
+        if (!fileToDelete.delete()) {
+            System.err.println("Can't delete");
+        }
+    }
 }
