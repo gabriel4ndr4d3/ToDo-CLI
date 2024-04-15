@@ -1,5 +1,8 @@
 package org.example;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,13 +10,15 @@ import java.util.Scanner;
 
 public class Main {
 
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+
     private final Scanner scanner = new Scanner(System.in);
     private final TaskDataSource dataSource = new TaskDataSource();
 
     public static void main(String[] args) {
 
         if (args.length == 0) {
-            System.out.println("No command provided");
+            logger.error("No command provided {}", System.lineSeparator());
             return;
         }
 
@@ -26,24 +31,25 @@ public class Main {
 
         String command = args.get(0);
 
-        if (command.equals("--version")) {
-            System.out.println("1.0-DEV");
-            return;
-        }
+        switch (command) {
+            case "--version":
+                logger.info("1.0-DEV {}", System.lineSeparator());
+                return;
+            case "add":
 
-        if (command.equals("add")) {
+                args.remove(0);
 
-            args.remove(0);
+                add();
 
-            add();
+                return;
+            case "list":
 
-            return;
-        }
-        if (command.equals("list")) {
+                args.remove(0);
 
-            args.remove(0);
-
-            list();
+                list();
+                break;
+            default:
+                break;
         }
 
         if (command.equals("delete")) {
@@ -52,7 +58,7 @@ public class Main {
 
             if (args.isEmpty()) {
 
-                System.out.println("Task name: ");
+                logger.info("Task name: {}", System.lineSeparator());
 
                 String taskName = scanner.nextLine();
 
@@ -69,7 +75,7 @@ public class Main {
 
             if (args.isEmpty()) {
 
-                System.out.print("Task name: ");
+                logger.info("Task name: ");
 
                 String taskName = scanner.nextLine();
 
@@ -95,17 +101,17 @@ public class Main {
 
     private void add() {
         try {
-            System.out.print("Título: ");
+            logger.info("Título: ");
             String title = scanner.nextLine();
 
-            System.out.print("Descrição: ");
+            logger.info("Descrição: ");
             String description = scanner.nextLine();
 
             Task task = new Task(title, description);
 
             dataSource.add(task);
         } catch (Exception e) {
-            System.err.print(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 
@@ -115,13 +121,14 @@ public class Main {
 
         if (tasks.isEmpty()) {
 
-            System.out.println("Empty directory files!!");
+            logger.warn("Empty directory files!! {}", System.lineSeparator());
 
             return;
         }
 
         for (Task task : tasks) {
-            System.out.println(task);
+            logger.info("{}", task);
+            logger.info(System.lineSeparator());
         }
     }
 
@@ -137,8 +144,10 @@ public class Main {
 
         Task task = dataSource.getTask(taskName);
 
-        System.out.println(task);
-        System.out.println(task.getDescription());
+        logger.info("{}", task);
+        logger.info(System.lineSeparator());
+        logger.info("{}", task.getDescription());
+        logger.info(System.lineSeparator());
     }
 
 }

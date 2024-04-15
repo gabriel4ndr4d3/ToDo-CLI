@@ -2,13 +2,18 @@ package org.example;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskDataSource {
+
+    private static final Logger logger = LoggerFactory.getLogger(TaskDataSource.class);
 
     private final Gson gson = new GsonBuilder()
             .setPrettyPrinting()
@@ -38,7 +43,7 @@ public class TaskDataSource {
             Util.write(file, json);
 
         } catch (Exception e) {
-            System.err.print(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 
@@ -50,7 +55,7 @@ public class TaskDataSource {
 
         File[] arquivos = diretorio.listFiles();
 
-        if (arquivos != null && arquivos.length != 0) {
+        if (arquivos != null) {
 
             for (File arquivo : arquivos) {
 
@@ -82,7 +87,7 @@ public class TaskDataSource {
         File arquivo = new File(diretotio, taskName);
 
         if (!arquivo.exists()) {
-            System.out.println("File not found");
+            logger.error("File not found");
             return;
         }
 
@@ -104,12 +109,15 @@ public class TaskDataSource {
         File fileToDelete = new File(directory, nameDelete);
 
         if (!fileToDelete.exists()) {
-            System.err.println("This file don't exist");
+            logger.error("This file don't exist {}", System.lineSeparator());
             return;
         }
 
-        if (!fileToDelete.delete()) {
-            System.err.println("Can't delete");
+        try {
+            Files.delete(directory.toPath());
+        } catch (IOException ignored) {
+            logger.error("Can't delete {}", System.lineSeparator());
         }
+
     }
 }
