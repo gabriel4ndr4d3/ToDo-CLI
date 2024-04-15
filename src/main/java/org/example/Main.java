@@ -91,6 +91,11 @@ public class Main {
                 done(args.get(0));
             }
         }
+
+        if (command.equals("--help")) {
+            args.remove(0);
+            help();
+        }
     }
 
     private void add() {
@@ -139,6 +144,15 @@ public class Main {
 
         System.out.println(task);
         System.out.println(task.getDescription());
+    }
+
+    private void help() {
+        System.out.println("--version\tShows the version of the application");
+        System.out.println("add\t\t\tIt allows a new task to be created");
+        System.out.println("list\t\tAll tasks are shown in a list");
+        System.out.println("delete\t\tIt allows a task to be deleted");
+        System.out.println("show\t\tA specific task's information is provided");
+        System.out.println("done\t\tA specific task can be marked as done");
     }
 
 }
