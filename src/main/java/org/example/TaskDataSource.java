@@ -55,7 +55,7 @@ public class TaskDataSource {
 
         File[] arquivos = diretorio.listFiles();
 
-        if (arquivos != null && arquivos.length != 0) {
+        if (arquivos != null) {
 
             for (File arquivo : arquivos) {
 

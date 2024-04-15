@@ -30,11 +30,6 @@ public class Task {
         this.done = true;
     }
 
-    public boolean getDone() {
-
-        return done;
-    }
-
     public String getTitle() {
         return title;
     }

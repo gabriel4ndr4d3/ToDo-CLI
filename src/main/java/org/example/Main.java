@@ -31,24 +31,25 @@ public class Main {
 
         String command = args.get(0);
 
-        if (command.equals("--version")) {
-            logger.info("1.0-DEV {}", System.lineSeparator());
-            return;
-        }
+        switch (command) {
+            case "--version":
+                logger.info("1.0-DEV {}", System.lineSeparator());
+                return;
+            case "add":
 
-        if (command.equals("add")) {
+                args.remove(0);
 
-            args.remove(0);
+                add();
 
-            add();
+                return;
+            case "list":
 
-            return;
-        }
-        if (command.equals("list")) {
+                args.remove(0);
 
-            args.remove(0);
-
-            list();
+                list();
+                break;
+            default:
+                break;
         }
 
         if (command.equals("delete")) {
