@@ -1,9 +1,18 @@
 package org.example;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.nio.file.Files;
 
 public class Util {
+
+    private static final Logger logger = LoggerFactory.getLogger(Util.class);
+
+    private Util() {
+        // empty constructor
+    }
 
     public static File getGlobalDir() {
 
@@ -19,14 +28,14 @@ public class Util {
 
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
 
-            BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
+            try (BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter)) {
 
-            bufferedWriter.write(text);
+                bufferedWriter.write(text);
 
-            bufferedWriter.close();
+            }
 
         } catch (IOException e) {
-            System.err.print(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 
@@ -38,20 +47,20 @@ public class Util {
 
             InputStream inputStream = Files.newInputStream(dir.toPath());
             InputStreamReader streamReader = new InputStreamReader(inputStream);
-            BufferedReader bufferedReader = new BufferedReader(streamReader);
+            try (BufferedReader bufferedReader = new BufferedReader(streamReader)) {
 
-            String line = bufferedReader.readLine();
+                String line = bufferedReader.readLine();
 
-            while (line != null) {
-                stringBuilder.append(line);
-                stringBuilder.append('\n');
-                line = bufferedReader.readLine();
+                while (line != null) {
+                    stringBuilder.append(line);
+                    stringBuilder.append('\n');
+                    line = bufferedReader.readLine();
+                }
+
             }
 
-            bufferedReader.close();
-
         } catch (IOException e) {
-            System.err.print(e.getMessage());
+            logger.error(e.getMessage());
         }
 
         return stringBuilder.toString();
